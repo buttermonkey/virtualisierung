@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+
+cloud "internet" #PeachPuff
+
+node Foodicted {
+    component "syslogd" #LightCyan
+    component "nsd"
+    component "unbound" <<outgoing>> #LightCyan
+    component "postgresql"
+    component "reverse-proxy (web)" #PeachPuff
+    component "reverse-proxy (intranet)" #LightYellow
+    component "foodicted-static" #PaleGreen
+    component "foodicted-frontend" #PaleGreen
+    component "foodicted-service" #PaleGreen
+    component "acme-client" <<outgoing>>
+    component "acme-http"
+    component "postfix" <<outgoing>> #PeachPuff
+    component "dovecot" #LightYellow
+    component "spamd"
+    component "listmonk"
+    component "roundcube"
+    cloud "intranet" #LightYellow
+
+    "syslogd" <-- "nsd"
+    "syslogd" <-- "unbound"
+    "unbound" <-- "foodicted-static"
+    "unbound" <-- "acme-client"
+    "unbound" <-- "acme-http"
+    "unbound" <-- "dovecot"
+    "unbound" <-- "spamd"
+    "unbound" <-- "postgresql"
+
+    "nsd" <-- "unbound"
+    "foodicted-static" <-- "reverse-proxy (web)"
+    "foodicted-frontend" <-- "reverse-proxy (web)"
+    "listmonk" <-- "reverse-proxy (intranet)"
+    "roundcube" <-- "reverse-proxy (intranet)"
+    "foodicted-service" <-- "foodicted-frontend"
+    "postgresql" <-- "foodicted-service"
+    "postfix" <- "foodicted-service"
+    "postgresql" <-- "listmonk"
+
+    "dovecot" <-- "postfix"
+    "dovecot" <-- "roundcube"
+    "spamd" <-- "postfix"
+    "postfix" <-- "listmonk"
+    "postfix" <-- "roundcube"
+}
+
+@enduml

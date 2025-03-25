@@ -1,0 +1,8 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+
+node Foodicted {
+    component "foodicted-service" #PaleGreen
+}
+
+@enduml

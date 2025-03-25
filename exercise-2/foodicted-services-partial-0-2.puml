@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+
+node Foodicted {
+    component "foodicted-frontend" #PaleGreen
+    component "foodicted-service" #PaleGreen
+
+    "foodicted-service" <-- "foodicted-frontend" #black
+}
+
+@enduml
