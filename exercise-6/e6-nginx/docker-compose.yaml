@@ -1,0 +1,8 @@
+version: "3"
+services:
+  client:
+    image: e5-nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/usr/share/nginx/html
