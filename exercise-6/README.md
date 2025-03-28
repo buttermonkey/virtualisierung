@@ -20,6 +20,8 @@ services:
 Run service:
 ```bash
 docker-compose up -d
+docker-compose ls
+docker container ls
 ```
 
 Open URL in web-browser: http://localhost:8080/
