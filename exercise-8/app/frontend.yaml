@@ -10,7 +10,7 @@ data:
       server {
         listen 80;
         location / {
-          proxy_pass http://backend-service.app.svc.cluster.local:80;
+          proxy_pass http://backend-service:80;
         }
       }
     }
